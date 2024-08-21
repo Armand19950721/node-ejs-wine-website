@@ -1,0 +1,39 @@
+<script type='text/javascript' src="./../static/vue_dist.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<section id="app">
+
+    <head>
+        <title>reCAPTCHA demo: Simple page</title>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    </head>
+
+
+    <body>
+        <!-- <div class="g-recaptcha" data-sitekey="6Lci1XQiAAAAACXA39Lm_9cnDwDtm9FwmmU2oy1X"></div> -->
+        <div class="g-recaptcha" data-sitekey="6LdVR00jAAAAAIvTx1BLbCtBJB-DDxE8uY4cQyA0" 
+            data-callback="verifyCallback"></div>
+        <br />
+    </body>
+
+    <input type="button" value="check" onclick="isCaptchaChecked()">
+</section>
+
+
+
+<script type="text/javascript">
+    var onloadCallback = function () {
+        console.log("grecaptcha is ready!")
+    };
+
+    function isCaptchaChecked() {
+        let result = grecaptcha && grecaptcha.getResponse().length !== 0;
+        console.log({ result })
+    }
+
+    function verifyCallback(token) {
+        console.log({ token })
+    }
+</script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer>
+</script>

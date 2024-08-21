@@ -1,0 +1,376 @@
+<section id="app" v-cloak>
+    <div id="foot-alert">
+        <span data-locale="foot-1">
+            禁止酒駕
+        </span>
+        <img src="/resource/img/alert-photo.png">
+        <span data-locale="foot-2">酒後不開車 安全有保障</span>
+    </div>
+    <div v-if="checkAge.isShow" class="checkAge">
+        <div class="wrap-mask"></div>
+        <div class="container containerCustom">
+            <img src="/resource/img/logo.png">
+            <div class="textBlock" data-locale="checkAge-1">
+                請輸入您的年齡
+            </div>
+            <div class="row">
+                <div class="col-4 " v-for="(item) in checkAge.birthday">
+                    <div class="input-group mb-3">
+                        <input v-on:change="changeAgeHandler()" type="number" class="form-control" v-model="item.val"
+                            :min="item.min" :max="item.max" :maxlength="item.maxlength" :placeholder="item.placeholder"
+                            aria-label="Username" autocomplete="off" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa-solid fa-globe"></i>
+                    {{ checkAge.langDropDownChoose }}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a v-for="(item) in checkAge.langDropDown" class="dropdown-item" href="javascript:void(0)"
+                        v-on:click="changeLang(item.lang)">{{item.name}}</a>
+                </div>
+            </div>
+            <div class="textBlock" data-locale="checkAge-2">
+                請您於進入本網站之前，確認您已閱讀並同意
+            </div>
+            <div class="custom">
+                <a data-locale="checkAge-3" href="javascript:void(0)">隱私權政策</a>
+            </div>
+
+            <button type="button" v-on:click="validAge()" class="btn btnCustom">ENTER</button>
+
+            <div data-locale="checkAge-4">
+                未成年者請勿瀏覽本網站
+            </div>
+            <div data-locale="checkAge-5">
+                本網站已依台灣網站內容分級規定處理
+            </div>
+        </div>
+    </div>
+    <div v-if="!checkAge.isShow">
+        <a v-if="sideMenuBtn.open" class="sideMenuBtn" v-on:click="displaySideMenu(true)" href="javascript:void(0)">
+            <i id="burger" class="fa-solid fa-bars fa-lg"></i>
+        </a>
+        <a v-else class="sideMenuBtnReturn" v-on:click="displaySideMenu(false)" href="javascript:void(0)">
+            <i id="xmark" class="fa-solid fa-xmark fa-lg"></i>
+        </a>
+
+        <div class="sideMenu">
+            <div class="row">
+                <div class="col-12">
+                    <img src="/resource/img/logo.png">
+                </div>
+                <div id="list" class="col-12">
+                    <div class="col-12 inner-row" v-for="(item) in sideMenu.list">
+                        <a href="javascript:void(0)" @click="goto('#' + item.id)">
+                            {{ item.name }}
+                        </a>
+                    </div>
+                </div>
+                <div class="brands row">
+                    <div class="col-3" v-for="(item) in sideMenu.sites">
+                        <a :href="item.href" target="_blank">
+                            <i v-bind:class="item.className"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div id="lang">
+            <a v-on:click="changeLang('zh')" href="javascript:void(0)">中文</a>
+            <span>|</span>
+            <a v-on:click="changeLang('en')" href="javascript:void(0)">EN</a>
+        </div> -->
+
+        <div id="bk-first">
+            <div class="inner">
+                <div class="firstLine" data-locale="firstBk-1">
+
+                </div>
+                <div class="secondLine" data-locale="firstBk-2">
+
+                </div>
+                <div class="secondLine" data-locale="firstBk-3">
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row" id="story">
+            <div class="col-12 col-md-6 img">
+            </div>
+
+            <div class="col-12 col-md-6 txt slide">
+                <span class="decorate">
+                    梅
+                </span>
+                <div class="title-cuz">
+                    Story
+                </div>
+                <div class="desc-container">
+                    <div class="desc">
+                        相⾒，遞上⼀杯馥郁優雅的『好桃花梅酒』佳釀，讓⼈暖⼼⼜暖胃。
+                    </div>
+                    <div class="desc">
+                        好桃花梅酒(HARUGAKO
+                        UMESHU)源⾃於兩位熱衷於釀造果酒的優雅女⽣，時常將⾃釀家常梅酒分享給親朋好友；由於反應熱烈，經由⼝耳相傳之後，越來越多⼈慕名⽽來品嚐這份雋永優雅的「梅」好滋味。兩位主理⼈懷抱熱情與意念，攜⼿共推出「好桃花梅酒」，希冀將這份融入⼿藝與分享⼼願的風味，承載著深厚友情的佳釀故事作為禮物，分享、傳遞給更多⼈品鑒。
+                    </div>
+                    <div class="desc">
+                        好桃花梅酒(HARUGAKO UMESHU)產⾃於「臺灣梅鄉」美名之稱的南投信義鄉，挑選當地無農藥梅園、7⾄8分熟
+                        度馥郁果香的⾼品質⼿採黃熟梅陳釀入缸，釀入特選台南16號越光米、2次蒸餾之燒灼基底，再與當地陳有蘭溪上游、得天獨厚的優質⽔源浸泡調和；精⼼製出微酸甜、柔順清透的梅⼦酒，梅香乍現的醇雅梅韻與絕佳滋味令⼈回味再三。值得⼀提的是有別於⼀般市售⽇本梅酒的滑稠蜜甜，好桃花梅酒(HARUGAKO
+                        UMESHU)甜熟潤甜中帶有微酸⽢⼝、多了幾分迷魅與嫵媚，梅濃酒香風味獨樹⼀格，講究品質無添加酸味劑、甜味劑或焦糖⾊素，以最 純粹台灣⼟地氣候孕育出的梅⼦勁道，品質醉⼈韻致、耐⼈細細品味。
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row slide" id="product">
+            <div class="col-12">
+                <div class="title-cuz">
+                    Product
+                </div>
+            </div>
+
+            <img src="/resource/img/背景1-橫.png">
+            <div class="col-12 col-md-6 txt">
+                <div class="title" data-locale="productOneTitle"></div>
+                <div class="price">
+                    <span>$</span>
+                    <span data-locale="productOnePrice"></span>
+                </div>
+                <div class="details">
+                    <div v-for="(item) in product.One.details" class="row">
+                        <div class="col-4 key" :data-locale="item.key">
+
+                        </div>
+                        <div class="col-8" :data-locale="item.val">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-a">
+                    <a href="javascript:void(0)" v-on:click="goto('#contact')">
+                        Contact Us
+                    </a>
+                </div>
+                <div class="desc" data-locale="productOneDesc">
+
+                </div>
+                <div class="descNote">
+                    <div v-for="(item) in product.One.descNote">
+                        <span>
+                            ※
+                        </span>
+                        <span :data-locale="item">
+
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-12 col-md-6 img">
+
+            </div>
+
+        </div>
+
+        <div id="product-bottom">
+            <div class="top-desktop">
+                <div class="row">
+                    <div class="col-6 video">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/JK4uPdDHdHk"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
+
+                    <div class="col-6 txt" data-locale="productBottom-1">
+
+                    </div>
+                </div>
+            </div>
+            <div class="top-mob">
+                <div data-locale="productBottomMob-1"></div>
+                <div data-locale="productBottomMob-2"></div>
+
+                <div class="video">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/JK4uPdDHdHk"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6 txt">
+                    <div class="title" data-locale="productBottom-2"></div>
+                    <img src="/resource/img/圖庫上方.png">
+                    <div class="desc" data-locale="productBottom-3"></div>
+                    <div class="desc" data-locale="productBottom-4"></div>
+                    <div class="btn-a">
+                        <a href="javascript:void(0)" v-on:click="goto('#contact')">
+                            Contact Us
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 img">
+                </div>
+            </div>
+        </div>
+
+        <!-- <div id="photos" class="row">
+            <div class="col-6 col-md-4 item" v-for="(item) in photos.urls">
+                <img :src="'/resource/img/' + item.fileName">
+                <div class="title" :data-locale="item.title">
+
+                </div>
+                <div class="desc" :data-locale="item.desc">
+
+                </div>
+            </div>
+        </div> -->
+
+        <div id="news" class="row">
+            <div class="col-12">
+                <div class="title-cuz">
+                    News
+                </div>
+            </div>
+            <div class="txt global-mergin">
+                <div class="row" v-for="(item) in news.items">
+                    <div class="col-12 col-sm-3 left">
+                        <a :href="item.href" :data-locale="item.key" target="_blank"></a>
+                    </div>
+                    <div class="col-12 col-sm-9 right">
+                        <a :href="item.href" :data-locale="item.val" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="talk" class="row" v-if="false">
+            <div class="col-12">
+                <div class="title-cuz">
+                    HotTopic
+                </div>
+            </div>
+            <div class="col-12 desc" data-locale="talk-1" style="padding-bottom: 20px;"></div>
+
+            <div class="col-6 col-md-4 item" v-for="i in talk.randomIdx">
+                <a v-if="talk.images[i].href != ''" :href="talk.images[i].href" target="_blank">
+                    <img :src="'/resource/img/endorsement/' + talk.images[i].name">
+                </a>
+
+                <img v-else :src="'/resource/img/endorsement/' + talk.images[i].name">
+            </div>
+
+            <!-- <div class="col-6 col-md-4 item" v-for="item in talk.images">
+                <a v-if="item.href != ''" :href="item.href" target="_blank">
+                    <img :src="'/resource/img/endorsement/' + item.name">
+                </a>
+
+                <img v-else :src="'/resource/img/endorsement/' + item.name">
+            </div> -->
+        </div>
+
+        <div id="gallary">
+            <div class="col-12">
+                <div class="title-cuz">
+                    Gallary
+                </div>
+            </div>
+            <div class="firstLine">
+                點擊放大圖片
+            </div>
+
+            <div class="imgArea row">
+                <div class="col-4" v-for="(item) in gallary.images">
+                    <a href="javascript:void(0)" v-on:click="openShowPhoto(item)">
+                        <div class="gallary-img"
+                            :style="'background-image: url(\'/resource/img/gallary/'+ item + '\');'">
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="showPhoto.isShow" id="showPhoto" v-on:click="closeShowPhoto()">
+            <img :src="showPhoto.src">
+        </div>
+
+        <div id="contact">
+            <div class="wrap-mask"></div>
+            <div class="inner">
+                <div class="firstLine">
+                    Contact
+                </div>
+                <div class="secondLine" data-locale="contact-1"></div>
+                <div class="secondLine" data-locale="contact-2"></div>
+                <div class="secondLine" data-locale="contact-3"></div>
+                <div class="addr">
+
+                    <div class="addrTitle" data-locale="contactSns-1"></div>
+                    <div class="snsDesc" data-locale="contactSns-2"></div>
+                    <!-- <div :class="item.btnClass" v-for="(item) in contact.sites">
+                        <div class="btn-ani-div">
+                            <a :href="item.href" class="btn-ani-a" target="_blank">
+                                <p>
+                                    <i :class="item.iconClass" aria-hidden="true"></i>
+                                    <span>{{item.span}}</span>
+                                </p>
+                            </a>
+                        </div>
+                    </div> -->
+
+                    <div class="brands row">
+                        <div class="col-3" v-for="(item) in sideMenu.sites">
+                            <a :href="item.href" target="_blank">
+                                <i v-bind:class="item.className"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="mailTitle" data-locale="contactMail"></div>
+                    <div class="btn-mail">
+                        <div class="btn-ani-div">
+                            <a href="mailto:annabelle0925@gmail.com" class="btn-ani-a" target="_blank">
+                                <p>
+                                    <i class="far fa-envelope i-mail" aria-hidden="true"></i>
+                                    <span>E-mail: annabelle0925@gmail.com</span>
+                                </p>
+                            </a>
+                        </div>
+                    </div> <div class="addrTitle" data-locale="brandSellLocation"></div>
+                    <div class="item" v-for="(item) in contact.addr">
+                        <div class="city">
+                            <span :data-locale="'contactAddrCity' + item.city"></span>
+                        </div>
+                        <div class="addrItem" v-for="i in item.storeCount">
+                            <div :data-locale="'contactAddr' + item.city +'-'+ i"></div>
+                            <div :data-locale="'contactAddrPhone' + item.city +'-'+ i"></div>
+                            <div :data-locale="'contactAddrOpenTime' + item.city +'-'+ i"></div>
+
+                            <div v-if="item.phonePickUpIdx != -1 && i == item.phonePickUpIdx">
+                                <span data-locale="contactAddrNote"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<script src="/resource/lib/jquery-1.10.2.min.js"></script>
+<script src="/resource/lib/jquery.i18n.properties.js"></script>
+<script src="/resource/lib/harugakoumeshu.js"></script>
+<script src="/resource/lib/harugakoumeshu-vue.js"></script>

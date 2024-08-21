@@ -1,0 +1,47 @@
+<script type='text/javascript' src="./../static/vue_dist.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<section id="app">
+    <h1>body</h1>
+    <span>{{ msg }}</span>
+    <input type="text" v-model="msg" />
+    <button v-on:click="sayHi()">sayHi</button>
+    <div>
+
+        <input id="fileupload" type="file" name="fileupload" />
+        <button id="upload-button" v-on:click="uploadFile()"> Upload </button>
+    </div>
+
+</section>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            msg: '123123',
+        },
+        created() {
+            console.log('hi')
+        },
+        methods: {
+            sayHi: function () {
+                console.log('hi')
+            },
+            uploadFile: async function () {
+                let formData = new FormData();
+                formData.append("file", fileupload.files[0]);
+                // await fetch('https://dev-api-v2.metarcommerce.com/api/upload_file', {
+                await fetch('https://api.metarcommerce.com/api/upload_file', {
+                // const result = await fetch('http://127.0.0.1:8080/api/upload_file', {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        authorize: '4991d79a628883b069eb0ed91e2ce5f863cd9cf08412a9c2dffb3951f41e6fb1',
+                        // authorize: 'c323b94dd0bcda0b6a5e8f00ef5310c34f791b16757437914f835abe7cbe1452',
+                    },
+                })
+                // alert('The file has been uploaded successfully.');
+            }
+        }
+    });
+</script>
